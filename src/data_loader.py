@@ -12,12 +12,15 @@ from pathlib import Path
 from datasets import load_dataset, load_from_disk
 import yaml
 
+project_root = Path(__file__).resolve().parent.parent
+default_config_path = project_root / "config/config.yaml"
+
 # Load configuration from a YAML file
 class ConfigLoader:
 
     @staticmethod
 
-    def load_config(config_path="config/config.yaml"):
+    def load_config(config_path=default_config_path):
         """ 
         Load configuration from a YAML file.
         
@@ -34,12 +37,16 @@ class RottenTomatoesDataLoader:
     This class handles downloading, saving, and loading the dataset.
     """
 
-    def __init__(self, config_path="config/config.yaml"):
+    def __init__(self, config_path=None):
         """ 
         Initialize the data loader with configuration.
         """
+        
+        if config_path is None:
+            config_path = default_config_path
+
         self.config = ConfigLoader.load_config(config_path)
-        self.data_path = Path(self.config["data"]["raw_path"])
+        self.data_path = (project_root / self.config["data"]["raw_path"])
         self.dataset_name = self.config["data"]["dataset_name"]
 
         self.data_path.mkdir(parents=True, exist_ok=True)
@@ -58,10 +65,14 @@ class RottenTomatoesDataLoader:
         dataset = load_dataset(self.dataset_name)
         return dataset
 
-    def save_dataset_local(self):
+    def save_dataset_local(self, dataset):
         """ 
         Save dataset to local storage.
+        
+        Args:
+            dataset: The dataset object to be saved.
         """
+
         self.logger.info(f"Saving dataset to local path: {self.data_path}")
         dataset.save_to_disk(str(self.data_path))
         self.logger.info(f"Dataset saved to {self.data_path}")
@@ -84,7 +95,7 @@ if __name__ == "__main__":
     loader = RottenTomatoesDataLoader()
 
     dataset = loader.download_dataset()
-    loader.save_dataset_local()
+    loader.save_dataset_local(dataset)
 
     # Sanity check
     loaded = loader.load_dataset_local()
