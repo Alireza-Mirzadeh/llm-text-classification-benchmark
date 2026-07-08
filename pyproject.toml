@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "datasets>=5.0.0",
+    "jinja2>=3.1.6",
     "logging>=0.4.9.6",
     "matplotlib>=3.11.0",
     "nltk>=3.9.4",
