@@ -1,0 +1,5 @@
+Rank,model,accuracy,precision,recall,f1
+4,Majority Class Baseline,0.5,0.0,0.0,0.0
+3,TF-IDF + Linear SVM,0.763,0.771,0.747,0.759
+2,Bag-of-Words + Logistic Regression,0.769,0.773,0.762,0.767
+1,TF-IDF + Logistic Regression,0.78,0.783,0.777,0.78
