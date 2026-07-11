@@ -4,3 +4,12 @@ data:
 
 logging:
   level: INFO
+
+models:
+
+  task_specific:
+
+    model_name: "cardiffnlp/twitter-roberta-base-sentiment-latest"
+    batch_size: 32
+    device: "auto"
+    
