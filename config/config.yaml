@@ -12,4 +12,8 @@ models:
     model_name: "cardiffnlp/twitter-roberta-base-sentiment-latest"
     batch_size: 32
     device: "auto"
+
+  embeddings:
+    model_name: "sentence-transformers/all-mpnet-base-v2"
+    batch_size: 32
     
